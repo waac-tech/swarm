@@ -1,6 +1,20 @@
 import java.io.*;
+import java.net.*;
+import java.util.*;
 
 public class Server{
+	
+	public String hash;
+	public String previousHash;
+	private String data; //our data will be a simple message.
+	private long timeStamp; //as number of milliseconds since 1/1/1970.
+
+	//Block Constructor.
+	public Server(String data,String previousHash ) {
+		this.data = data;
+		this.previousHash = previousHash;
+		this.timeStamp = new Date().getTime();
+	}
 	
 	public static void main(String[] args) throws Exception{
 		
