@@ -8,16 +8,17 @@ import java.net.Socket;
 
 public class Server extends Thread {
     public static void main(String[] args) throws IOException {
+        try {
         ServerSocket serverSocket = new ServerSocket(6578);
-        while (true){
-            try {
-                serverSocket.accept();
+        while (true) {
+            new Thread(new ClientWorker(serverSocket.accept())).start();
+        }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-    public class ClientWorker implements Runnable{
+    class ClientWorker implements Runnable{
         private Socket tagetSocket;
         private DataInputStream dataInputStream;
         private DataOutputStream dataOutputStream;
@@ -36,11 +37,36 @@ public class Server extends Thread {
                 byte[] initialize = new byte[1];
                 try {
                     dataInputStream.read(initialize, 0, initialize.length);
-                    if (initialize[0]==2){}
+                    if (initialize[0]==2){
+                        System.out.println(new String(ReadStream()));
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+        private byte[] ReadStream(){
+            byte[] dataBuffer = null;
+            try{
+                int b = 0;
+                String lengthBuffer = "";
+                while ((b = dataInputStream.read())!=4){
+                    lengthBuffer += (char)b;
+                }
+                int dataLength = Integer.parseInt(lengthBuffer);
+                dataBuffer = new byte[Integer.parseInt(lengthBuffer)];
+                  int byteRead = 0;
+                  int byteOffset = 0;
+                  while (byteOffset < dataLength){
+                      byteRead = dataInputStream.read(dataBuffer, byteOffset,dataLength - byteOffset);
+                      byteOffset += byteRead;
+                  }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return dataBuffer;
+        }
     }
-}
+
+
