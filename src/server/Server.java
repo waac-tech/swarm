@@ -26,13 +26,20 @@ public class Server extends Thread {
                 tagetSocket = recieveSocket;
                 dataInputStream = new DataInputStream(tagetSocket.getInputStream());
                 dataOutputStream = new DataOutputStream(tagetSocket.getOutputStream());
-            }catch (IOException ex){
-              ex.printStackTrace();
+            }catch (IOException e){
+              e.printStackTrace();
             } }
 
         @Override
         public void run() {
-
+            while (true) {
+                byte[] initialize = new byte[1];
+                try {
+                    dataInputStream.read(initialize, 0, initialize.length);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
