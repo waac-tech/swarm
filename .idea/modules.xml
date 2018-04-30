@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/swarm.iml" filepath="$PROJECT_DIR$/swarm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TCP Model.iml" filepath="$PROJECT_DIR$/TCP Model.iml" />
     </modules>
   </component>
 </project>
