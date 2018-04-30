@@ -36,6 +36,7 @@ public class Server extends Thread {
                 byte[] initialize = new byte[1];
                 try {
                     dataInputStream.read(initialize, 0, initialize.length);
+                    if (initialize[0]==2){}
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
